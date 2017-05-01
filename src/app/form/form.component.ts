@@ -16,10 +16,11 @@ export class FormComponent implements OnInit {
 
   ngOnInit() {
   	this.billing_form = this._fb.group({
-      name:["" , Validators.compose([Validators.required])],
-  		card_number:["" , Validators.compose([Validators.minLength(16) ,Validators.maxLength(16), Validators.required , NumberValidator.validate])],
+      card_number_1:["" , Validators.compose([Validators.minLength(16) ,Validators.maxLength(16), Validators.required , NumberValidator.validate])],
+  		card_number_2:["" , Validators.compose([Validators.minLength(16) ,Validators.maxLength(16), Validators.required , NumberValidator.validate])],
       cvv:["" , Validators.compose([Validators.required, Validators.minLength(3) ,Validators.maxLength(3),NumberValidator.validate])],
       exp_month :["" , Validators.compose([Validators.required])],
+      exp_year :["" , Validators.compose([Validators.required])],
       address:["" , Validators.compose([Validators.required])],
       suite:["" , Validators.compose([Validators.required])],
       city:["" , Validators.compose([Validators.required])],
@@ -28,6 +29,10 @@ export class FormComponent implements OnInit {
       country:["" , Validators.compose([Validators.required])]
 
   	})
+  }
+
+  create(form){
+    console.log(form , "thi si sform")
   }
 
 }

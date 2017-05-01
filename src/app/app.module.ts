@@ -5,6 +5,8 @@ import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 import { FormComponent } from './form/form.component';
+import { AlertModule } from 'ng2-bootstrap';
+
 
 @NgModule({
   declarations: [
@@ -12,6 +14,7 @@ import { FormComponent } from './form/form.component';
     FormComponent
   ],
   imports: [
+  AlertModule.forRoot(),
     BrowserModule,
     FormsModule,
     ReactiveFormsModule,
