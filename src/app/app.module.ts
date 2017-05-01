@@ -13,7 +13,8 @@ import { DisplayComponent } from './display/display.component';
 
 
 const appRoutes: Routes = [
-  { path: 'alo', component: AppComponent },
+  { path: '', component: FormComponent },
+  { path: 'display', component: DisplayComponent },
   
 ];
 

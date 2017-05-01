@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import {NumberValidator , CharacterValidator, YearValidator} from '../../validators';
 
@@ -11,7 +12,9 @@ import {NumberValidator , CharacterValidator, YearValidator} from '../../validat
 export class FormComponent implements OnInit {
 	public billing_form: FormGroup;
   
-  constructor(private _fb: FormBuilder) { 
+  constructor(private _fb: FormBuilder,
+    private router:Router
+  ) { 
   }
 
   ngOnInit() {
@@ -45,8 +48,8 @@ export class FormComponent implements OnInit {
   }
 
 
-  create(form){
-    console.log(form , "thi si sform")
+  navigate(form){
+    this.router.navigate(['/display']);
   }
 
 }
