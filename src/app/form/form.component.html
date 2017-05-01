@@ -1,24 +1,29 @@
 <form [formGroup]="billing_form" novalidate (ngSubmit)="create(billing_form)">
-    <div class="form-group">
-        <label for="card_number">Credit card number:</label>
-        <input class="form-control" formControlName="card_number_1">
-        <span *ngIf="billing_form.controls.card_number_1.touched && billing_form.controls.card_number_1.hasError('required')" class="help-block sub-little-text"> please enter the card number</span>
-        <span *ngIf="billing_form.controls.card_number_1.touched && ( billing_form.controls.card_number_1.hasError('minlength') || billing_form.controls.card_number_1.hasError('maxlength'))" class="help-block sub-little-text"> please enter the 16 digit card number</span>
-        <span *ngIf="billing_form.controls.card_number_1.touched && billing_form.controls.card_number_1.hasError('invalid_number')" class="help-block sub-little-text"> please enter number only</span>
-
-    </div>
-    <div class="form-group">
-        <label for="card_number">Credit card number:</label>
-        <input class="form-control" formControlName="card_number_2">
-        <span *ngIf="billing_form.controls.card_number_2.touched && billing_form.controls.card_number_2.hasError('required')" class="help-block sub-little-text text-color"> please enter the card number</span>
-        <span *ngIf="billing_form.controls.card_number_2.touched && ( billing_form.controls.card_number_2.hasError('minlength') || billing_form.controls.card_number_2.hasError('maxlength'))" class="help-block sub-little-text"> please enter the 16 digit card number</span>
-        <span *ngIf="billing_form.controls.card_number_2.touched && billing_form.controls.card_number_2.hasError('invalid_number')" class="help-block sub-little-text"> please enter number only</span>
+    <div formGroupName="card_number">
+        <div class="form-group">
+            <label for="card_number">Credit card number:</label>
+            <input class="form-control" formControlName="card_number_1">
+            <span *ngIf="billing_form.controls.card_number.controls.card_number_1.touched && billing_form.controls.card_number.controls.card_number_1.hasError('required')" class="help-block sub-little-text"> please enter the card number</span>
+            <span *ngIf="billing_form.controls.card_number.controls.card_number_1.touched && ( billing_form.controls.card_number.controls.card_number_1.hasError('minlength') || billing_form.controls.card_number.controls.card_number_1.hasError('maxlength'))" class="help-block sub-little-text"> please enter the 16 digit card number</span>
+            <span *ngIf="billing_form.controls.card_number.controls.card_number_1.touched && billing_form.controls.card_number.controls.card_number_1.hasError('invalid_number')" class="help-block sub-little-text"> please enter number only</span>
+            <span *ngIf="billing_form.controls.card_number.controls.card_number_1.touched && billing_form.controls.card_number.hasError('not_duplicate')" class="help-block sub-little-text"> please make sure both card number are same</span>
+        </div>
+        <div class="form-group">
+            <label for="card_number">Credit card number:</label>
+            <input class="form-control" formControlName="card_number_2">
+            <span *ngIf="billing_form.controls.card_number.controls.card_number_2.touched && billing_form.controls.card_number.controls.card_number_2.hasError('required')" class="help-block sub-little-text text-color"> please enter the card number</span>
+            <span *ngIf="billing_form.controls.card_number.controls.card_number_2.touched && ( billing_form.controls.card_number.controls.card_number_2.hasError('minlength') || billing_form.controls.card_number.controls.card_number_2.hasError('maxlength'))" class="help-block sub-little-text"> please enter the 16 digit card number</span>
+            <span *ngIf="billing_form.controls.card_number.controls.card_number_2.touched && billing_form.controls.card_number.controls.card_number_2.hasError('invalid_number')" class="help-block sub-little-text"> please enter number only</span>
+            <span *ngIf="billing_form.controls.card_number.controls.card_number_2.touched && billing_form.controls.card_number.hasError('not_duplicate')" class="help-block sub-little-text"> please make sure both card number are same</span>
+        </div>
     </div>
     <div class="row">
         <div class="form-group col-xs-4">
             <label for="cvv">CVV:</label>
             <input class="form-control" formControlName="cvv">
             <span *ngIf="billing_form.controls.cvv.touched && billing_form.controls.cvv.hasError('required')" class="help-block sub-little-text text-color"> please enter the cvv</span>
+            <span *ngIf="billing_form.controls.cvv.touched && ( billing_form.controls.cvv.hasError('minlength') || billing_form.controls.cvv.hasError('maxlength'))" class="help-block sub-little-text"> please enter the 3 digit cvv</span>
+            <span *ngIf="billing_form.controls.cvv.touched && billing_form.controls.cvv.hasError('invalid_number')" class="help-block sub-little-text"> please enter number only</span>
         </div>
         <div class="form-group col-xs-4">
             <label for="exp_month">EXP MONTH:</label>
@@ -27,11 +32,13 @@
                     {{month}}
                 </option>
             </select>
+            <span *ngIf="billing_form.controls.exp_month.touched && billing_form.controls.exp_month.hasError('required')" class="help-block sub-little-text text-color"> please selct the expiry month</span>
         </div>
         <div class="form-group col-xs-4">
-        	<label for="exp_year">EXP YEAR:</label>
-        	<input class="form-control" formControlName="exp_year">
-        	<span *ngIf="billing_form.controls.exp_year.touched && billing_form.controls.exp_year.hasError('required')" class="help-block sub-little-text text-color"> please enter the expiry year</span>
+            <label for="exp_year">EXP YEAR:</label>
+            <input class="form-control" formControlName="exp_year">
+            <span *ngIf="billing_form.controls.exp_year.touched && billing_form.controls.exp_year.hasError('required')" class="help-block sub-little-text text-color"> please enter the expiry year</span>
+            <span *ngIf="billing_form.controls.exp_year.touched && billing_form.controls.exp_year.hasError('invalid_year')" class="help-block sub-little-text text-color"> please provide current or later year</span>
         </div>
     </div>
     <div class="form-group">
@@ -44,32 +51,35 @@
             <label for="suite">API/SUITE:</label>
             <input class="form-control" formControlName="suite">
             <span *ngIf="billing_form.controls.suite.touched && billing_form.controls.suite.hasError('required')" class="help-block sub-little-text text-color"> please enter the suite</span>
+            <span *ngIf="billing_form.controls.suite.touched && billing_form.controls.suite.hasError('invalid_character')" class="help-block sub-little-text text-color"> please enter characters only</span>
         </div>
         <div class="form-group col-xs-6">
             <label for="ciry">CITY:</label>
             <input class="form-control" formControlName="city">
             <span *ngIf="billing_form.controls.city.touched && billing_form.controls.city.hasError('required')" class="help-block sub-little-text text-color"> please enter the city</span>
+            <span *ngIf="billing_form.controls.city.touched && billing_form.controls.city.hasError('invalid_character')" class="help-block sub-little-text text-color"> please enter characters only</span>
         </div>
-       
     </div>
-
     <div class="row">
         <div class="form-group col-xs-6">
             <label for="state">STATE:</label>
             <input class="form-control" formControlName="state">
             <span *ngIf="billing_form.controls.state.touched && billing_form.controls.state.hasError('required')" class="help-block sub-little-text text-color"> please enter the state</span>
+            <span *ngIf="billing_form.controls.state.touched && billing_form.controls.state.hasError('invalid_character')" class="help-block sub-little-text text-color"> please enter characters only</span>
         </div>
         <div class="form-group col-xs-6">
             <label for="postal">ZIP/POSTAL:</label>
             <input class="form-control" formControlName="postal">
             <span *ngIf="billing_form.controls.postal.touched && billing_form.controls.postal.hasError('required')" class="help-block sub-little-text text-color"> please enter the postal code</span>
+            <span *ngIf="billing_form.controls.postal.touched && ( billing_form.controls.postal.hasError('minlength') || billing_form.controls.postal.hasError('maxlength'))" class="help-block sub-little-text"> please enter the 6 digit postal code</span>
+            <span *ngIf="billing_form.controls.postal.touched && billing_form.controls.postal.hasError('invalid_number')" class="help-block sub-little-text"> please enter number only</span>
         </div>
     </div>
-
     <div class="form-group">
         <label for="country">Country:</label>
         <input class="form-control" formControlName="country">
         <span *ngIf="billing_form.controls.country.touched && billing_form.controls.country.hasError('required')" class="help-block sub-little-text text-color"> please enter the country</span>
+        <span *ngIf="billing_form.controls.country.touched && billing_form.controls.country.hasError('invalid_character')" class="help-block sub-little-text text-color"> please enter characters only</span>
     </div>
-    <button type="submit" class="btn btn-default" >Start Free Trial</button>
+    <button type="submit" class="btn btn-default" [disabled]="!billing_form.valid">Start Free Trial</button>
 </form>

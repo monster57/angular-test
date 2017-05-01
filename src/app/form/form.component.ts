@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import {NumberValidator} from '../../validators/number.validator';
+import {NumberValidator , CharacterValidator, YearValidator} from '../../validators';
 
 
 @Component({
@@ -16,20 +16,34 @@ export class FormComponent implements OnInit {
 
   ngOnInit() {
   	this.billing_form = this._fb.group({
-      card_number_1:["" , Validators.compose([Validators.minLength(16) ,Validators.maxLength(16), Validators.required , NumberValidator.validate])],
-  		card_number_2:["" , Validators.compose([Validators.minLength(16) ,Validators.maxLength(16), Validators.required , NumberValidator.validate])],
+      card_number:this._fb.group({
+        card_number_1:["" , Validators.compose([Validators.minLength(16) ,Validators.maxLength(16), Validators.required , NumberValidator.validate])],
+        card_number_2:["" , Validators.compose([Validators.minLength(16) ,Validators.maxLength(16), Validators.required , NumberValidator.validate])],
+      } , {validator: this.areEqual}),
       cvv:["" , Validators.compose([Validators.required, Validators.minLength(3) ,Validators.maxLength(3),NumberValidator.validate])],
       exp_month :["" , Validators.compose([Validators.required])],
-      exp_year :["" , Validators.compose([Validators.required])],
+      exp_year :["" , Validators.compose([Validators.required,Validators.minLength(4) ,Validators.maxLength(4),NumberValidator.validate,YearValidator.validate])],
       address:["" , Validators.compose([Validators.required])],
-      suite:["" , Validators.compose([Validators.required])],
-      city:["" , Validators.compose([Validators.required])],
-      state:["" , Validators.compose([Validators.required])],
-      postal:["" , Validators.compose([Validators.minLength(16) ,Validators.maxLength(16),Validators.required,NumberValidator.validate])],
-      country:["" , Validators.compose([Validators.required])]
+      suite:["" , Validators.compose([Validators.required , CharacterValidator.validate])],
+      city:["" , Validators.compose([Validators.required, CharacterValidator.validate])],
+      state:["" , Validators.compose([Validators.required, CharacterValidator.validate])],
+      postal:["" , Validators.compose([Validators.minLength(6) ,Validators.maxLength(6),Validators.required,NumberValidator.validate])],
+      country:["" , Validators.compose([Validators.required , CharacterValidator.validate])]
 
   	})
   }
+
+  areEqual(group: FormGroup) {
+    
+    if(group.controls["card_number_1"].value != group.controls["card_number_2"].value 
+         && group.controls["card_number_2"].value!= "" && group.controls["card_number_1"].value!=""){
+         return {
+           not_duplicate: true  
+        }  
+       }
+       return null;
+  }
+
 
   create(form){
     console.log(form , "thi si sform")
